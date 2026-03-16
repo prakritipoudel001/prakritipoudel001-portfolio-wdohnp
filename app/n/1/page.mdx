@@ -1,66 +1,50 @@
 export const metadata = {
-  title: '5 Tiny CLI Tricks You (Probably) Didn’t Know',
+  title: 'The Journey of Building a Simple Project',
   alternates: {
     canonical: '/n/1',
   },
 };
 
-# 5 Tiny CLI Tricks You (Probably) Didn’t Know
+# The Journey of Building a Simple Project
 
 <br />
 
-A lightning-round of command-line nuggets to level-up your dev workflow.
+The process of building a project is as much about the journey as it is about the final result. In this blog, I’ll share my experience building a simple project and the lessons I learned along the way.
 
-## 1. **`history | grep` + `fzf` = instant recall**
+## Getting Started
 
-Fish out that elusive command you ran last Tuesday:
+Every project begins with an idea. For this one, I wanted to create something straightforward but meaningful—something that could help me improve my development skills while providing a tangible result. After brainstorming, I settled on what I like to call my "Test Project." While it may sound simple, it allowed me to explore various concepts and tools.
 
-```bash
-history | grep docker | fzf
-````
+Here’s how I began:
 
-Hit **Enter** and it pastes right back to your prompt like magic.
-
----
-
-## 2. **Reverse-search a Git log by file *content***
-
-Combine `git log` with `-S` (search diff) to find when a string first appeared:
-
-```bash
-git log -S"resizeObserver" --oneline -- src/components/Layout.tsx
-```
+- Defined the primary goal of the project.
+- Outlined the features I wanted to include.
+- Selected the tech stack that suited the project's scope and my current skill level.
 
 ---
 
-## 3. **JSON-pretty print … with zero dependencies**
+## Overcoming Challenges
 
-Mac & Linux already ship with `python3`:
+No project is without its challenges, and this one was no different. Some of the key hurdles I faced were:
+
+1. **Deciding on the tech stack**: Choosing tools and technologies is often overwhelming. I focused on simplicity—starting with what I knew and adding in new tools only when necessary. 
+   
+2. **Debugging issues**: Debugging is an integral part of development. A single unexpected behavior took hours to resolve, but it taught me patience and attention to detail.
+
+3. **Staying consistent**: The biggest challenge can often be staying motivated. I broke the project into smaller milestones to keep the momentum going.
+
+Here’s a quick example of a basic setup command I used:
 
 ```bash
-cat response.json | python3 -m json.tool | less
+npm init -y
 ```
+
+> 💡 *Pro-tip:* Break your project into small, achievable tasks. Even minimal progress every day adds up over time.
 
 ---
 
-## 4. **One-liner port-forwarding for quick demos**
+## Final Thoughts
 
-Need to expose `localhost:3000`? Use SSH—no ngrok token needed.
+Building my "Test Project" was an incredibly rewarding experience. It reminded me of the importance of planning, persistence, and embracing challenges. Whether you’re working on your first project or your fiftieth, the key is to keep learning and growing with every step you take.
 
-```bash
-ssh -R 80:localhost:3000 ssh.localhost.run
-```
-
-Now share the generated URL on Slack and watch eyebrows rise.
-
----
-
-## 5. **Measure *anything* with `time` + subshell**
-
-How long does your linter actually take?
-
-```bash
-time (npm run lint > /dev/null)
-```
-
-> 💡 *Pro-tip:* wrap this in a `pre-push` hook so slow commands get caught early.
+If you’d like to check out my project or have any feedback, feel free to visit [my GitHub](https://github.com/prakritipoudel001). Let’s connect and learn from one another!

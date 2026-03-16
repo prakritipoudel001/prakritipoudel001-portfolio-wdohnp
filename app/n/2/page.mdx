@@ -1,135 +1,60 @@
 export const metadata = {
-  title: '6 Sneaky JavaScript Patterns to Cut Boilerplate',
+  title: 'Getting Started with Your First Open Source Contribution',
   alternates: {
     canonical: '/n/2',
   },
 };
 
-# 6 Sneaky JavaScript Patterns to Cut Boilerplate
+# Getting Started with Your First Open Source Contribution
 
 <br />
 
-Micro-optimizations and quality-of-life hacks to keep your scripts lean, readable, and bug-resistant.
+Contributing to open-source projects can be a rewarding experience. It may seem daunting at first, but I’d like to share how I started and some tips and insights that might make it easier for you to jump in.
 
-## 1. **Optional Chaining `?.` + Nullish Coalescing `??`**
+## Why Contribute to Open Source?
 
-Stop writing five nested guards:
-
-```js
-// Old
-const theme = user && user.settings && user.settings.theme
-  ? user.settings.theme
-  : 'light';
-
-// New
-const theme = user?.settings?.theme ?? 'light';
-````
-
-Fewer lines, same safety.
+Open-source is not just about code—it’s about collaboration, learning, and giving back. For me, contributing to open-source has been a way to improve my skills, connect with other developers, and share knowledge. It’s also a great opportunity to build your portfolio and showcase your skills to future employers.
 
 ---
 
-## 2. **Barrel Files for One-Line Imports**
+## Steps to Make Your First Contribution
 
-Aggregate related exports into a single “barrel” file:
+Getting involved in open-source doesn’t have to be overwhelming. Here are steps that worked for me:
 
-```js
-// utils/index.js
-export * from './format';
-export * from './validate';
-export * from './fetch';
+1. **Find a Project**  
+   Look for beginner-friendly projects. Platforms like GitHub have labels like `good first issue` or `help wanted`. These are great starting points for identifying tasks that suit your skill level.
 
-// SomeComponent.js
-import { formatDate, validateEmail, getJSON } from '@/utils';
-```
+2. **Clone the Repository**  
+   Once you’ve chosen a project, clone the repo to your local system:
 
-Kill import clutter without sacrificing tree-shaking.
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
 
----
+3. **Understand the Codebase**  
+   Spend some time exploring the project. Look at the readme file and documentation—you’ll often find guidelines and setup instructions there.
 
-## 3. **Memoize Pure Functions with a `WeakMap`**
+4. **Pick an Issue**  
+   Start with a small issue, like fixing a typo or documenting a function. You don’t need to dive directly into solving complex bugs.
 
-Cache heavy computations tied to objects—no leaks:
+5. **Create a Pull Request**  
+   Once your changes are ready, submit a pull request (PR). Don’t worry; maintainers are there to guide you through the process.
 
-```js
-const cache = new WeakMap();
+   ```bash
+   git checkout -b your-branch-name
+   git commit -m "Brief description of your changes"
+   git push origin your-branch-name
+   ```
 
-export function expensive(obj) {
-  if (cache.has(obj)) return cache.get(obj);
-  const result = crunchNumbers(obj); // 🚀 costly
-  cache.set(obj, result);
-  return result;
-}
-```
-
-Results follow the object’s lifetime—GC does the cleanup.
+> 💡 *Pro-tip:* Join the repository’s discussions or communication channels. This will help you get feedback and understanding from the community.
 
 ---
 
-## 4. **Tagged Template Literals for Safe HTML**
+## My Path Forward
 
-Prevent XSS without a third-party lib:
-
-```js
-const escape = (strings, ...values) =>
-  strings.reduce(
-    (acc, str, i) =>
-      acc +
-      str +
-      (values[i]
-        ? String(values[i]).replace(/[&<>"']/g, (s) => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;',
-          })[s])
-        : ''),
-    '',
-  );
-
-const name = '<script>alert(1)</script>';
-document.body.innerHTML = escape`<p>Hello, ${name}!</p>`;
-```
-
-Zero dependencies, maximum safety.
+My journey into open-source is still evolving. Starting small with a test project helped me gain confidence, and I’m constantly learning something new with every contribution. Remember, everyone starts somewhere. Don’t be afraid to ask for help and learn as you go.
 
 ---
 
-## 5. **`AbortController` for Cancellable `fetch`**
-
-Stop orphaning network calls on route changes:
-
-```js
-const controller = new AbortController();
-const { signal } = controller;
-
-fetch('/api/data', { signal })
-  .then((r) => r.json())
-  .catch((e) => {
-    if (e.name !== 'AbortError') throw e;
-  });
-
-// later…
-controller.abort();
-```
-
-No more “state update on unmounted component” warnings.
-
----
-
-## 6. **Format Like a Native with `Intl`**
-
-Forget custom helpers—use the built-ins:
-
-```js
-const usd = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-}).format(1999.99); // "$1,999.99"
-
-const isoDate = new Intl.DateTimeFormat('sv-SE').format(new Date());
-// "2025-06-05"
-```
-
-Locale-aware, performant, and zero bloat.
+If you’ve been hesitant about starting your open-source journey, I hope these tips inspire you to give it a try. Feel free to connect with me on [GitHub](https://github.com/prakritipoudel001) if you’re looking for beginner-friendly projects or want to share your experiences. Let’s grow together!
